@@ -6,8 +6,10 @@ gem 'rack'
 group :tools do
   gem 'guard'
   gem 'guard-bundler'
+  gem 'guard-reek'
   gem 'guard-rspec'
   gem 'guard-rubocop'
+  gem 'reek'
   gem 'rubocop'
   gem 'terminal-notifier-guard'
 end

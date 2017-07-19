@@ -28,3 +28,8 @@ end
 guard :rubocop do
   watch(%r{\A.+\.rb$\z})
 end
+
+guard :reek, cli: '--single-line --no-wiki-links' do
+  watch(%r{\A.+\.rb$\z})
+  watch('.reek')
+end
