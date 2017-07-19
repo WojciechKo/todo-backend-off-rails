@@ -5,7 +5,7 @@ Application = Rack::Builder.new do
   use Rack::Reloader
 
   map '/' do
-    run lambda { |_env| [200, {}, ['Server is working']] }
+    run ->(_env) { [200, {}, ['Server is working']] }
   end
 
   map '/api' do

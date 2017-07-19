@@ -11,22 +11,20 @@ guard :bundler do
 end
 
 guard :rspec, cmd: 'bundle exec rspec', failed_mode: :keep do
-  #run all specs if configuration is modified
-  watch('Guardfile') { 'spec' }
+  # Run all specs if configuration is modified
   watch('Gemfile.lock') { 'spec' }
   watch('spec/spec_helper.rb') { 'spec' }
 
-  # run all specs if supporting files files are modified
+  # Run all specs if supporting files files are modified
   watch(%r{\Aspec/(?:support)/.+\.rb\z}) { 'spec' }
 
   watch(%r{\Aconfig/application\.rb\z}) { 'spec' }
-  watch(%r{\Aapp/api\.rb\z}) { 'spec' }
+  watch(%r{\Aapp/(.+)\.rb$}) { 'spec' }
 
-  # run a spec if it is modified
+  # Run a spec if it is modified
   watch(%r{\Aspec/(?:unit|integration)/.+_spec\.rb\z})
 end
 
 guard :rubocop do
-  watch(%r{.+\.rb$})
-  watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
+  watch(%r{\A.+\.rb$\z})
 end

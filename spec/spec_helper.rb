@@ -25,9 +25,7 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_results'
   config.disable_monkey_patching!
 
-  if config.files_to_run.one?
-    config.default_formatter = 'doc'
-  end
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   config.profile_examples = 3
 
