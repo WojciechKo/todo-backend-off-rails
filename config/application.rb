@@ -1,3 +1,4 @@
+require 'rack'
 require_relative '../app/api'
 
 Application = Rack::Builder.new do
