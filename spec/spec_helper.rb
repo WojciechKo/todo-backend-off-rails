@@ -1,6 +1,8 @@
+ENV['RACK_ENV'] ||= 'test'
+
 require_relative '../config/application'
 
-Dir[File.join(__dir__, 'helpers/*.rb')].each { |f| require f }
+Dir[File.join(__dir__, 'support/*.rb')].each { |f| require f }
 
 def app
   Application
