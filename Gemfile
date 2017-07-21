@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'rack'
+gem 'roda'
 
 group :tools do
   gem 'guard'
@@ -15,6 +16,7 @@ group :tools do
 end
 
 group :test, :development do
+  gem 'byebug'
   gem 'rack-test'
   gem 'rspec'
 end
