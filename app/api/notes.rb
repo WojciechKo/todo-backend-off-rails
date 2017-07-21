@@ -1,5 +1,7 @@
 class API
   class Notes < Roda
+    plugin :json
+
     route do |request|
       request.is do
         request.get do
@@ -21,7 +23,7 @@ class API
                 }
               ]
             }
-          }.to_json
+          }
         end
       end
 
@@ -35,7 +37,7 @@ class API
             },
             id: 1,
             text: 'Simple note'
-          }.to_json
+          }
         end
       end
     end

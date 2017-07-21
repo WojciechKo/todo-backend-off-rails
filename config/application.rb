@@ -7,7 +7,12 @@ Application = Rack::Builder.new do
   use Rack::Reloader
 
   map '/' do
-    run ->(_env) { [200, {}, ['Server is working'.to_json]] }
+    status_server = lambda do |_env|
+      [200,
+       { 'Content-Type' => 'application/json' },
+       ['Server is working'.to_json]]
+    end
+    run status_server
   end
 
   map '/api' do

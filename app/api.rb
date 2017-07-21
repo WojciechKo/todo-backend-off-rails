@@ -5,7 +5,8 @@ class API < Roda
     req.is do
       req.get do
         response.status = 200
-        'Api is working'.to_json
+        response['Content-Type'] = 'application/json'
+        '"Api is working"'
       end
     end
 

@@ -1,9 +1,13 @@
 RSpec.describe 'GET /api/notes' do
+  subject { get '/api/notes' }
+
+  it_behaves_like 'returns json'
+
   it 'returns notes' do
-    get '/api/notes'
+    subject
 
     expect(last_response.status).to eq(200)
-    expect(json_response)
+    expect(last_response_json)
       .to include(
         '_links' => {
           'self' => { 'href' => 'http://example.org/api/notes' }

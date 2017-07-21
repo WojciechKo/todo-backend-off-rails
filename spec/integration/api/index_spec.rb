@@ -1,6 +1,10 @@
 RSpec.describe 'GET /api' do
+  subject { get '/api' }
+
+  it_behaves_like 'returns json'
+
   it 'returns 200' do
-    get '/api'
+    subject
 
     expect(last_response.status).to eq(200)
     expect(last_response_json).to eq('Api is working')
