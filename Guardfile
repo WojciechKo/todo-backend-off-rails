@@ -10,6 +10,15 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
+guard :rubocop do
+  watch(%r{\A.+\.rb$\z})
+end
+
+guard :reek, cli: '--single-line --no-wiki-links' do
+  watch(%r{\A.+\.rb$\z})
+  watch('.reek')
+end
+
 guard :rspec, cmd: 'bundle exec rspec', failed_mode: :keep do
   # Run all specs if configuration is modified
   watch('Gemfile.lock') { 'spec' }
@@ -23,13 +32,4 @@ guard :rspec, cmd: 'bundle exec rspec', failed_mode: :keep do
 
   # Run a spec if it is modified
   watch(%r{\Aspec/(?:unit|integration)/.+_spec\.rb\z})
-end
-
-guard :rubocop do
-  watch(%r{\A.+\.rb$\z})
-end
-
-guard :reek, cli: '--single-line --no-wiki-links' do
-  watch(%r{\A.+\.rb$\z})
-  watch('.reek')
 end
