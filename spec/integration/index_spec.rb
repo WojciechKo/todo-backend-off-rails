@@ -3,6 +3,6 @@ RSpec.describe 'GET /' do
     get '/'
 
     expect(last_response.status).to eq(200)
-    expect(json_response).to eq('Server is working')
+    expect(last_response_json).to eq('Server is working')
   end
 end
