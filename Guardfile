@@ -32,4 +32,5 @@ guard :rspec, cmd: 'bundle exec rspec', failed_mode: :keep do
 
   # Run a spec if it is modified
   watch(%r{\Aspec/(?:unit|integration)/.+_spec\.rb\z})
+  watch(%r{^lib/(.+)\.rb}) { |m| "spec/lib/#{m[1]}_spec.rb" }
 end

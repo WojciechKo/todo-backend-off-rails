@@ -19,4 +19,5 @@ group :test, :development do
   gem 'byebug'
   gem 'rack-test'
   gem 'rspec'
+  gem 'rspec-parameterized'
 end
