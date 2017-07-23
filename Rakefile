@@ -6,6 +6,13 @@ task default: [:spec]
 
 require 'fileutils'
 
+task :console do
+  at_exit do
+    command = 'bundle exec pry -r ./config/application.rb'
+    system(*command) || abort("\n== Command #{command} failed ==")
+  end
+end
+
 namespace :db do
   task :setup do
     conn = PG.connect(ENV.fetch('DATABASE_URL'), dbname: 'postgres')
