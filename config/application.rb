@@ -1,5 +1,8 @@
-require 'rack'
-Bundler.require :default, ENV['RACK_ENV']
+require 'bundler'
+
+env = ENV.fetch('RACK_ENV', 'development')
+Bundler.require :default, env
+Dotenv.load(".env.#{env}", '.env')
 
 require_relative '../app/api'
 
