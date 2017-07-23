@@ -1,8 +1,5 @@
-require 'bundler'
-
-env = ENV.fetch('RACK_ENV', 'development')
-Bundler.require :default, env
-Dotenv.load(".env.#{env}", '.env')
+require_relative 'environment'
+Dir[File.join(__dir__, 'initializers/*.rb')].each { |f| require f }
 
 require_relative '../app/api'
 

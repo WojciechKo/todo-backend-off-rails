@@ -1,8 +1,7 @@
-ENV['RACK_ENV'] ||= 'test'
+ENV.update('RACK_ENV' => 'test')
 
 require_relative '../config/application'
 
-require 'rspec-parameterized'
 Dir[File.join(__dir__, 'support/*.rb')].each { |f| require f }
 Dir[File.join(__dir__, 'shared/*.rb')].each { |f| require f }
 
