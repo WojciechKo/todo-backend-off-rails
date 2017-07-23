@@ -6,3 +6,7 @@ Dotenv.load(".env.#{ENV.fetch('RACK_ENV')}", '.env')
 
 $LOAD_PATH.unshift(File.expand_path('lib'))
 $LOAD_PATH.unshift(File.expand_path('app'))
+
+module Types
+  include Dry::Types.module
+end

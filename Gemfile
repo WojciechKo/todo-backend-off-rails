@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'dotenv'
+gem 'dry-struct'
 gem 'pg'
 gem 'rack'
 gem 'roda'
@@ -20,6 +21,7 @@ end
 
 group :test, :development do
   gem 'byebug'
+  gem 'database_cleaner'
   gem 'rack-test'
   gem 'rspec'
   gem 'rspec-parameterized'
