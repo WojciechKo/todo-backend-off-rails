@@ -1,7 +1,13 @@
+AllCops:
+  TargetRubyVersion: 2.4.1
+
 Metrics/LineLength:
   Max: 120
 
 Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/RegexpLiteral:
