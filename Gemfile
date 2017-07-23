@@ -5,6 +5,7 @@ gem 'dotenv'
 gem 'pg'
 gem 'rack'
 gem 'roda'
+gem 'sequel'
 
 group :tools do
   gem 'guard'

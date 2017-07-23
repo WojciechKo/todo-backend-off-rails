@@ -123,6 +123,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
+    sequel (4.48.0)
     shellany (0.0.1)
     slop (3.6.0)
     terminal-notifier-guard (1.7.0)
@@ -162,6 +163,7 @@ DEPENDENCIES
   rspec
   rspec-parameterized
   rubocop
+  sequel
   terminal-notifier-guard
 
 RUBY VERSION
