@@ -5,6 +5,8 @@ require 'database_utils'
 RSpec::Core::RakeTask.new(:spec)
 task default: [:spec]
 
+task ci: [:spec]
+
 task :console do
   at_exit do
     command = 'bundle exec pry -r ./config/application.rb'
