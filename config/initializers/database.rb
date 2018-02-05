@@ -1,9 +1,8 @@
 DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
 
-begin
-  Sequel.extension :migration
-  Sequel::Migrator.check_current(DB, 'db/migrations')
-rescue Sequel::Migrator::NotCurrentError
+Sequel.extension :migration
+
+unless Sequel::Migrator.is_current?(DB, 'db/migrations')
   require 'database_utils'
   DatabaseUtils.migrate
 end
