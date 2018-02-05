@@ -9,8 +9,7 @@ task ci: [:spec]
 
 task :console do
   at_exit do
-    command = 'bundle exec pry -r ./config/application.rb'
-    system(*command) || abort("\n== Command #{command} failed ==")
+    run_command 'bundle exec pry -r ./config/application.rb'
   end
 end
 
@@ -19,7 +18,7 @@ namespace :db do
     DatabaseUtils.setup
   end
 
-  task :create_migration, [:name] do |_task, args|
+  task :migration, [:name] do |_task, args|
     DatabaseUtils.create_migration(args[:name])
   end
 
@@ -30,4 +29,12 @@ namespace :db do
   task :drop do
     DatabaseUtils.drop
   end
+
+  task :console do
+    run_command "psql -d #{ENV['DATABASE_URL']}"
+  end
+end
+
+def run_command(command)
+  system(command) || abort("\n== Command #{command} failed ==")
 end
