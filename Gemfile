@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
-ruby '2.4.1'
+ruby '2.5.0'
 
 gem 'dotenv'
 gem 'dry-struct'
 gem 'pg'
 gem 'rack'
 gem 'roda'
+gem 'rom'
+gem 'rom-sql'
 gem 'sequel'
 
 group :tools do
