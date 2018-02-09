@@ -1,4 +1,6 @@
-DB = Sequel.connect(ENV.fetch('DATABASE_URL'))
+require_relative 'config'
+
+DB = Sequel.connect(Config.get.database_url)
 
 Sequel.extension :migration
 
