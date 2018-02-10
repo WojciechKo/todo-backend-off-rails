@@ -1,5 +1,6 @@
 RSpec.configure do |config|
   config.before(:suite) do
+    DatabaseCleaner[:sequel].db = ROM_CONTAINER.gateways[:default].connection
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end

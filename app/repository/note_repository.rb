@@ -1,19 +1,11 @@
-require 'model/note'
-
-class NoteRepository
-  def initialize(dataset = DB[:notes])
-    @dataset = dataset
+class NoteRepository < ROM::Repository[:notes]
+  def self.build
+    new(ROM_CONTAINER)
   end
+
+  commands :create, update: :by_pk, delete: :by_pk
 
   def all
-    dataset.all.map { |note| Note.new(note) }
+    notes.to_a
   end
-
-  def insert(**args)
-    dataset.insert(args)
-  end
-
-  private
-
-  attr_reader :dataset
 end

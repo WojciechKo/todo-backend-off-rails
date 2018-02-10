@@ -7,9 +7,13 @@ RSpec.describe 'POST /api/notes' do
     subject
 
     expect(last_response.status).to eq(201)
-    expect(last_response_json).to eq(
-      '_links' => { 'self' => { 'href' => 'http://example.org/api/notes/1' } },
-      'id' => 1,
+    expect(last_response_json).to match(
+      '_links' => {
+        'self' => {
+          'href' => be_url('api', 'notes', :uuid)
+        }
+      },
+      'id' => be_uuid,
       'text' => 'It is my own note'
     )
   end

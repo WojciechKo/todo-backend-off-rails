@@ -1,3 +1,5 @@
+require 'repository/note_repository'
+
 class API
   class Notes < Roda
     plugin :json
@@ -8,34 +10,39 @@ class API
         request.get do
           response.status = 200
 
+          notes = NoteRepository.build
+                    .all.map do |note|
+            {
+              _links: {
+                self: { href: "http://example.org/api/notes/#{note.id}" }
+              },
+              id: note.id,
+              text: note.text
+            }
+          end
+
           {
             _links: {
               self: { href: "#{request.base_url}#{request.path}" }
             },
-            count: 1,
+            count: notes.size,
             _embedded: {
-              notes: [
-                {
-                  _links: {
-                    self: { href: 'http://example.org/api/notes/1' }
-                  },
-                  id: 1,
-                  text: 'Simple note'
-                }
-              ]
+              notes: notes
             }
           }
         end
 
         request.post do
           response.status = 201
+          note = NoteRepository.build
+                   .create(text: request.params['text'])
 
           {
             _links: {
-              self: { href: 'http://example.org/api/notes/1' }
+              self: { href: "http://example.org/api/notes/#{note.id}" }
             },
-            id: 1,
-            text: request.params['text']
+            id: note.id,
+            text: note.text
           }
         end
       end
@@ -44,12 +51,15 @@ class API
         request.get do
           response.status = 200
 
+          note = NoteRepository.build
+                   .by_id(request.params['id'])
+
           {
             _links: {
-              self: { href: 'http://example.org/api/notes/1' }
+              self: { href: "http://example.org/api/notes/#{note.id}" }
             },
-            id: 1,
-            text: 'Simple note'
+            id: note.id,
+            text: note.text
           }
         end
       end
