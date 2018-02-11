@@ -13,7 +13,7 @@ RSpec.describe 'GET /api/notes' do
       .to match(
         'data' => [],
         'meta' => {
-          'count' => 0,
+          'count' => 0
         },
         'links' => {
           'self' => be_url('api', 'notes')
@@ -23,7 +23,7 @@ RSpec.describe 'GET /api/notes' do
 
   context 'with single note' do
     let!(:note) do
-      post '/api/notes', params: {'text' => 'simple note'}
+      post '/api/notes', params: { 'text' => 'simple note' }
       last_response_json['data']
     end
 

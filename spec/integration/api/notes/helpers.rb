@@ -1,5 +1,6 @@
 module NoteApi
   module_function
+
   extend JsonRequest
   extend JsonResponse
 

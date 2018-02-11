@@ -1,8 +1,8 @@
 REGEXES = {
-  uuid: /[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/.freeze
-}
+  uuid: /[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/
+}.freeze
 
-RSpec::Matchers.define :be_uuid do |expected|
+RSpec::Matchers.define :be_uuid do
   match { |actual| actual.match(REGEXES[:uuid]) }
 end
 

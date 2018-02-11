@@ -1,11 +1,9 @@
 require_relative 'helpers'
 
 RSpec.describe 'GET /api/notes/{:id}' do
-
   context 'note not found' do
     xit 'returns error' do
       get '/api/notes/1'
-
     end
   end
 
