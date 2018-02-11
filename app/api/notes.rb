@@ -1,35 +1,28 @@
 require 'repository/note_repository'
+require 'api/serializers/serializable_note'
 
 class API
   class Notes < Roda
     plugin :json
     plugin :json_parser
 
+    def renderer
+      JSONAPI::Serializable::Renderer.new
+    end
+
     route do |request|
       request.is do
         request.get do
           response.status = 200
 
-          notes = NoteRepository.build
-                    .all.map do |note|
-            {
-              _links: {
-                self: { href: "http://example.org/api/notes/#{note.id}" }
-              },
-              id: note.id,
-              text: note.text
-            }
-          end
+          notes = NoteRepository.build.all
 
-          {
-            _links: {
-              self: { href: "#{request.base_url}#{request.path}" }
-            },
-            count: notes.size,
-            _embedded: {
-              notes: notes
-            }
-          }
+          renderer.render(
+            notes,
+            class: { 'ROM::Struct::Note': SerializableNote },
+            meta: { count: notes.size },
+            links: { self: request.url }
+          )
         end
 
         request.post do
@@ -37,30 +30,26 @@ class API
           note = NoteRepository.build
                    .create(text: request.params['text'])
 
-          {
-            _links: {
-              self: { href: "http://example.org/api/notes/#{note.id}" }
-            },
-            id: note.id,
-            text: note.text
-          }
+          renderer.render(
+            note,
+            class: { 'ROM::Struct::Note': SerializableNote },
+            links: { self: 'http://example.org/api/notes' }
+          )
         end
       end
 
-      request.on(:id) do
+      request.on(:id) do |note_id|
         request.get do
           response.status = 200
 
           note = NoteRepository.build
-                   .by_id(request.params['id'])
+                   .by_id(note_id)
 
-          {
-            _links: {
-              self: { href: "http://example.org/api/notes/#{note.id}" }
-            },
-            id: note.id,
-            text: note.text
-          }
+          renderer.render(
+            note,
+            class: { 'ROM::Struct::Note': SerializableNote },
+            links: { self: "http://example.org/api/notes/#{note.id}" }
+          )
         end
       end
     end

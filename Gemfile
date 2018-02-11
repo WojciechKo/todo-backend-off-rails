@@ -3,6 +3,8 @@ ruby '2.5.0'
 
 gem 'dotenv'
 gem 'dry-struct'
+gem 'jsonapi-deserializable'
+gem 'jsonapi-serializable'
 gem 'pg'
 gem 'rack'
 gem 'roda'

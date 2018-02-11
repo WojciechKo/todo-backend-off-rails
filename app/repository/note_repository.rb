@@ -8,4 +8,8 @@ class NoteRepository < ROM::Repository[:notes]
   def all
     notes.to_a
   end
+
+  def by_id(id)
+    notes.by_pk(id).one
+  end
 end

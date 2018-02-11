@@ -10,15 +10,13 @@ RSpec.describe 'GET /api/notes' do
 
     expect(last_response.status).to eq(200)
     expect(last_response_json)
-      .to include(
-        '_links' => {
-          'self' => {
-            'href' => be_url('api', 'notes')
-          }
+      .to match(
+        'data' => [],
+        'meta' => {
+          'count' => 0,
         },
-        'count' => 0,
-        '_embedded' => {
-          'notes' => []
+        'links' => {
+          'self' => be_url('api', 'notes')
         }
       )
   end
@@ -26,7 +24,7 @@ RSpec.describe 'GET /api/notes' do
   context 'with single note' do
     let!(:note) do
       post '/api/notes', params: {'text' => 'simple note'}
-      last_response_json
+      last_response_json['data']
     end
 
     it 'returns single note' do
@@ -34,26 +32,24 @@ RSpec.describe 'GET /api/notes' do
 
       expect(last_response.status).to eq(200)
       expect(last_response_json)
-        .to include(
-          '_links' => {
-            'self' => {
-              'href' => be_url('api', 'notes')
-            }
-          },
-          'count' => 1,
-          '_embedded' => {
-            'notes' =>
-            [
-              {
-                '_links' => {
-                  'self' => {
-                    'href' => be_url('api', 'notes', note['id'])
-                  },
-                },
-                'id' => note['id'],
-                'text' => note['text']
+        .to match(
+          'data' => [
+            {
+              'id' => note['id'],
+              'type' => 'notes',
+              'attributes' => {
+                'text' => note['attributes']['text']
+              },
+              'links' => {
+                'self' => be_url('api', 'notes', note['id'])
               }
-            ]
+            }
+          ],
+          'meta' => {
+            'count' => 1
+          },
+          'links' => {
+            'self' => be_url('api', 'notes')
           }
         )
     end
