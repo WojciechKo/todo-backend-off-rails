@@ -1,6 +1,13 @@
+require 'json'
 require 'rack/test'
 
-module JsonRequest
+module JsonApiCalls
+  class JsonResponse < SimpleDelegator
+    def json
+      JSON.parse(body)
+    end
+  end
+
   include Rack::Test::Methods
 
   HTTP_VERBS = %i[get post put patch delete options head].freeze
@@ -18,6 +25,11 @@ module JsonRequest
       env['CONTENT_TYPE'] = 'application/json'
 
       super(uri, params.to_json, env, &block)
+      last_response
     end
+  end
+
+  def last_response
+    JsonResponse.new(super)
   end
 end

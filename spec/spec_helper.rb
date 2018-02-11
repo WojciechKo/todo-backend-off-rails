@@ -3,15 +3,14 @@ ENV.update('RACK_ENV' => 'test')
 require_relative '../config/application'
 
 Dir[File.join(__dir__, 'support/*.rb')].each { |f| require f }
-Dir[File.join(__dir__, 'shared/*.rb')].each { |f| require f }
+Dir[File.join(__dir__, 'support/helpers/*.rb')].each { |f| require f }
 
 def app
   Application
 end
 
 RSpec.configure do |config|
-  config.include JsonRequest
-  config.include JsonResponse
+  config.include JsonApiCalls
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
