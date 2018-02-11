@@ -1,7 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.5.0
   Exclude:
-    - db/schema.rb
+    - vendor/**/*
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver

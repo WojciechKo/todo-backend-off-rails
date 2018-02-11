@@ -5,12 +5,16 @@ require 'database_utils'
 RSpec::Core::RakeTask.new(:spec)
 task default: [:spec]
 
-task ci: [:spec]
+task travis: %i[spec rubocop]
 
 task :console do
   at_exit do
     run_command 'bundle exec pry -r ./config/application.rb'
   end
+end
+
+task :rubocop do
+  run_command 'bundle exec rubocop'
 end
 
 namespace :db do
