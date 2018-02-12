@@ -27,6 +27,9 @@ RSpec::Matchers.define :return_json do |status, body|
     expect(actual).to be_json
   end
   description { "return status #{status} and json #{surface_descriptions_in(body)}" }
+  failure_message do |actual|
+    "expected #{[actual.status, actual.json, actual.headers]} to have status #{status}, body #{body} and be json"
+  end
 end
 
 RSpec::Matchers.define :return_status do |status|
