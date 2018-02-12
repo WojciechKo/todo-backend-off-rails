@@ -15,6 +15,9 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Max: 120
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 Style/Documentation:
   Enabled: false
 

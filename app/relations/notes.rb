@@ -1,5 +1,3 @@
-require 'entities/note'
-
 class Notes < ROM::Relation[:sql]
   schema do
     attribute :id, Types::String

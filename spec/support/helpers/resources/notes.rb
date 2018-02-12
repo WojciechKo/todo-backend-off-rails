@@ -1,11 +1,9 @@
-module Resources
-  module Notes
-    extend JsonApiCalls
+module Resources::Notes
+  extend JsonApiCalls
 
-    module_function
+  module_function
 
-    def create_note(text)
-      post '/api/notes', params: { 'text' => text }
-    end
+  def create_note(text)
+    post '/api/notes', params: { 'text' => text }
   end
 end

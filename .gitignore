@@ -1,3 +1,5 @@
 .rspec_results
 **/*~
 **/*.swp
+doc
+log

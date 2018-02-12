@@ -6,3 +6,5 @@ Dotenv.load(".env.#{ENV.fetch('RACK_ENV')}", '.env')
 
 $LOAD_PATH.unshift(File.expand_path('lib'))
 $LOAD_PATH.unshift(File.expand_path('app'))
+
+Dir.mkdir('log') unless Dir.exist?('log')
