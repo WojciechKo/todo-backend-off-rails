@@ -1,11 +1,42 @@
 RSpec.describe 'GET /api/notes/{:id}' do
   subject { get "/api/notes/#{note_id}" }
-  let(:note_id) { 'abcdefgh' }
+
+  context 'when invalid id' do
+    let(:note_id) { 'abcdefgh' }
+    let(:response) do
+      {
+        'errors' =>
+        [
+          { 'status' => '400',
+            'title' => 'Invalid id',
+            'detail' => 'Can not find a note with given id',
+            'source' => {
+              'parameter' => 'id'
+            } }
+        ]
+      }
+    end
+
+    it { is_expected.to return_json(400, response) }
+  end
 
   context 'when note not found' do
-    xit 'returns error' do
-      subject
+    let(:note_id) { '123e4567-e89b-12d3-a456-426655440000' }
+    let(:response) do
+      {
+        'errors' =>
+        [
+          { 'status' => '400',
+            'title' => 'Invalid id',
+            'detail' => 'Can not find a note with given id',
+            'source' => {
+              'parameter' => 'id'
+            } }
+        ]
+      }
     end
+
+    it { is_expected.to return_json(400, response) }
   end
 
   context 'when note found' do

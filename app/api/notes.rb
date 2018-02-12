@@ -1,5 +1,6 @@
 require 'repository/note_repository'
 require 'api/serializers/serializable_note'
+require 'api/serializers/serializable_error'
 
 class API::Notes < Roda
   plugin :json
@@ -39,15 +40,34 @@ class API::Notes < Roda
 
     request.on(:id) do |note_id|
       request.get do
-        response.status = 200
-
         note = NoteRepository.build
                  .by_id(note_id)
 
-        renderer.render(
-          note,
-          class: { 'ROM::Struct::Note': SerializableNote },
-          links: { self: "http://example.org/api/notes/#{note.id}" }
+        if note
+          response.status = 200
+          renderer.render(
+            note,
+            class: { 'ROM::Struct::Note': SerializableNote },
+            links: { self: "http://example.org/api/notes/#{note.id}" }
+          )
+        else
+          response.status = 400
+          renderer.render_errors(
+            [{ status: 400,
+               title: 'Invalid id',
+               detail: 'Can not find a note with given id',
+               source: { parameter: :id } }],
+            class: { 'Hash': SerializableError }
+          )
+        end
+      rescue StandardError
+        response.status = 400
+        renderer.render_errors(
+          [{ status: 400,
+             title: 'Invalid id',
+             detail: 'Can not find a note with given id',
+             source: { parameter: :id } }],
+          class: { 'Hash': SerializableError }
         )
       end
     end

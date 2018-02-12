@@ -15,7 +15,7 @@ Application = Rack::Builder.new do
   use Rack::Reloader
 
   map '/' do
-    run(-> _env { JsonResponse.build(200, 'Application is working') })
+    run(->(_env) { JsonResponse.build(200, 'Application is working') })
   end
 
   map '/api' do
